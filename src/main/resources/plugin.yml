@@ -1,0 +1,8 @@
+main: in.thekreml.reuseit.ReuseIt
+name: reuse-it
+version: 0.1.0
+api-version: 1.16
+depend: [Vault]
+commands:
+  reuse:
+    description: Toggle reuse settings
