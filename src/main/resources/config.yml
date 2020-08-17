@@ -1,2 +1,5 @@
 materials:
   - WHEAT_SEEDS
+  - LEGACY_SEEDS
+  - LEGACY_AIR
+  - LEGACY_POTATO_ITEM
