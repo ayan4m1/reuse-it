@@ -1,5 +1,6 @@
 package in.thekreml.reuseit.listener;
 
+import in.thekreml.reuseit.Constants;
 import in.thekreml.reuseit.ReuseIt;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,7 +20,7 @@ public class PlayerStackListener implements Listener {
   }
 
   @EventHandler
-  public void onPlayerUse(PlayerInteractEvent playerInteractEvent) {
+  public void onPlayerInteract(PlayerInteractEvent playerInteractEvent) {
     if (playerInteractEvent.getAction() != Action.RIGHT_CLICK_BLOCK) {
       return;
     }
@@ -46,15 +47,21 @@ public class PlayerStackListener implements Listener {
       return;
     }
 
+    final String itemType = stack.getData().getItemType().name();
+
     if (!plugin.getConfigModel().getMaterials().contains(stack.getData().getItemType())) {
-      plugin.getLog().fine(stack.getData().getItemType().name() + " is not eligible for reuse!");
+      plugin.getLog().fine(itemType + " is not eligible for reuse!");
       return;
     }
 
-    final String itemType = stack.getData().getItemType().name();
+    final Player player = playerInteractEvent.getPlayer();
+
+    if (!plugin.getPermissions().has(player, Constants.PERMISSION_USE)) {
+      plugin.getLog().info(player.getName() + " does not have " + Constants.PERMISSION_USE);
+    }
 
     Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-      final Player player = playerInteractEvent.getPlayer();
+      plugin.getLog().fine("Searching for a stack of " + itemType);
       final ItemStack[] storage = player.getInventory().getStorageContents();
 
       for (int i = 0; i < storage.length; i++) {
