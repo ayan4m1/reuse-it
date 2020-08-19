@@ -1,7 +1,7 @@
 package in.thekreml.reuseit;
 
 import in.thekreml.reuseit.config.ConfigModel;
-import in.thekreml.reuseit.listener.PlayerStackListener;
+import in.thekreml.reuseit.listener.PlayerListener;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -35,7 +35,7 @@ public class ReuseIt extends JavaPlugin {
       return;
     }
 
-    Bukkit.getPluginManager().registerEvents(new PlayerStackListener(this), this);
+    Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
 
     log.info("ReuseIt enabled!");
   }
