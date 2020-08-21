@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -19,14 +18,7 @@ import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 public class PlayerListener implements Listener {
-  private static final Set<Material> THROWN_ITEMS =
-      new HashSet<>(Arrays.asList(Material.EGG, Material.SNOWBALL, Material.EXPERIENCE_BOTTLE));
-
   private final ReuseIt plugin;
 
   public PlayerListener(ReuseIt plugin) {
@@ -37,6 +29,10 @@ public class PlayerListener implements Listener {
   public void onPlayerInteract(PlayerInteractEvent event) {
     final Player player = event.getPlayer();
 
+    if (!plugin.getConfigModel().isInteractEnabled()) {
+      return;
+    }
+
     if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
       return;
     }
@@ -46,21 +42,72 @@ public class PlayerListener implements Listener {
       return;
     }
 
-    checkStack(player, event.getItem());
+    final ItemStack item = event.getItem();
+
+    if (item == null || item.getData() == null) {
+      return;
+    }
+
+    final String itemType = item.getData().getItemType().name();
+
+    if (!plugin.getConfigModel().getInteractMaterials().contains(item.getData().getItemType())) {
+      plugin.getLog().fine(itemType + " is not eligible for interact reuse!");
+      return;
+    }
+
+    checkStack(player, item);
   }
 
   @EventHandler
   public void onPlayerBreakItem(PlayerItemBreakEvent event) {
-    checkStack(event.getPlayer(), event.getBrokenItem());
+    if (!plugin.getConfigModel().isBreakEnabled()) {
+      return;
+    }
+
+    final ItemStack item = event.getBrokenItem();
+
+    if (item.getData() == null) {
+      return;
+    }
+
+    final String itemType = item.getData().getItemType().name();
+
+    if (!plugin.getConfigModel().getBreakMaterials().contains(item.getData().getItemType())) {
+      plugin.getLog().fine(itemType + " is not eligible for break reuse!");
+      return;
+    }
+
+    checkStack(event.getPlayer(), item);
   }
 
   @EventHandler
   public void onPlayerConsume(PlayerItemConsumeEvent event) {
-    checkStack(event.getPlayer(), event.getItem());
+    if (!plugin.getConfigModel().isConsumeEnabled()) {
+      return;
+    }
+
+    final ItemStack item = event.getItem();
+
+    if (item.getData() == null) {
+      return;
+    }
+
+    final String itemType = item.getData().getItemType().name();
+
+    if (!plugin.getConfigModel().getConsumeMaterials().contains(item.getData().getItemType())) {
+      plugin.getLog().fine(itemType + " is not eligible for consume reuse!");
+      return;
+    }
+
+    checkStack(event.getPlayer(), item);
   }
 
   @EventHandler
   public void onProjectileLaunch(ProjectileLaunchEvent event) {
+    if (!plugin.getConfigModel().isThrowEnabled()) {
+      return;
+    }
+
     final Projectile entity = event.getEntity();
 
     if (!(entity.getShooter() instanceof Player)) {
@@ -69,6 +116,17 @@ public class PlayerListener implements Listener {
 
     final Player player = (Player)entity.getShooter();
     final ItemStack stack = player.getInventory().getItemInMainHand();
+
+    if (stack.getData() == null) {
+      return;
+    }
+
+    final String itemType = stack.getData().getItemType().name();
+
+    if (!plugin.getConfigModel().getThrowMaterials().contains(stack.getData().getItemType())) {
+      plugin.getLog().fine(itemType + " is not eligible for consume reuse!");
+      return;
+    }
 
     checkStack(player, stack);
   }
@@ -86,17 +144,12 @@ public class PlayerListener implements Listener {
       return;
     }
 
-    final String itemType = item.getData().getItemType().name();
-
-    if (!plugin.getConfigModel().getMaterials().contains(item.getData().getItemType())) {
-      plugin.getLog().fine(itemType + " is not eligible for reuse!");
-      return;
-    }
-
     if (!plugin.getPermissions().has(player, Constants.PERMISSION_USE)) {
       plugin.getLog().info(player.getName() + " does not have " + Constants.PERMISSION_USE);
       return;
     }
+
+    final String itemType = item.getData().getItemType().name();
 
     Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> SwapUtil.performSwap(player, itemType));
   }

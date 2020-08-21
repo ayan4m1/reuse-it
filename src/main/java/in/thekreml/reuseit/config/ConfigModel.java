@@ -11,14 +11,77 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ConfigModel {
-  private Set<Material> materials;
+  private boolean interactEnabled;
+  private Set<Material> interactMaterials;
+  private boolean breakEnabled;
+  private Set<Material> breakMaterials;
+  private boolean throwEnabled;
+  private Set<Material> throwMaterials;
+  private boolean consumeEnabled;
+  private Set<Material> consumeMaterials;
 
-  public Set<Material> getMaterials() {
-    return materials;
+  public boolean isInteractEnabled() {
+    return interactEnabled;
   }
 
-  public void setMaterials(Set<Material> materials) {
-    this.materials = materials;
+  public void setInteractEnabled(boolean interactEnabled) {
+    this.interactEnabled = interactEnabled;
+  }
+
+  public Set<Material> getInteractMaterials() {
+    return interactMaterials;
+  }
+
+  public void setInteractMaterials(Set<Material> interactMaterials) {
+    this.interactMaterials = interactMaterials;
+  }
+
+  public boolean isBreakEnabled() {
+    return breakEnabled;
+  }
+
+  public void setBreakEnabled(boolean breakEnabled) {
+    this.breakEnabled = breakEnabled;
+  }
+
+  public Set<Material> getBreakMaterials() {
+    return breakMaterials;
+  }
+
+  public void setBreakMaterials(Set<Material> breakMaterials) {
+    this.breakMaterials = breakMaterials;
+  }
+
+  public boolean isThrowEnabled() {
+    return throwEnabled;
+  }
+
+  public void setThrowEnabled(boolean throwEnabled) {
+    this.throwEnabled = throwEnabled;
+  }
+
+  public Set<Material> getThrowMaterials() {
+    return throwMaterials;
+  }
+
+  public void setThrowMaterials(Set<Material> throwMaterials) {
+    this.throwMaterials = throwMaterials;
+  }
+
+  public boolean isConsumeEnabled() {
+    return consumeEnabled;
+  }
+
+  public void setConsumeEnabled(boolean consumeEnabled) {
+    this.consumeEnabled = consumeEnabled;
+  }
+
+  public Set<Material> getConsumeMaterials() {
+    return consumeMaterials;
+  }
+
+  public void setConsumeMaterials(Set<Material> consumeMaterials) {
+    this.consumeMaterials = consumeMaterials;
   }
 
   public static ConfigModel loadConfigModel(JavaPlugin plugin) {
@@ -27,18 +90,75 @@ public class ConfigModel {
     try {
       plugin.getConfig().load(Constants.CONFIG_PATH);
 
-      final List<String> materialNames = plugin.getConfig().getStringList(Constants.CONFIG_KEY_MATERIALS);
+      final boolean interactEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_INTERACT_ENABLED);
+      final boolean breakEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_BREAK_ENABLED);
+      final boolean throwEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_THROW_ENABLED);
+      final boolean consumeEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_CONSUME_ENABLED);
 
-      if (materialNames.size() < 1) {
-        throw new InvalidConfigurationException(Constants.CONFIG_ERROR_EMPTY_MATERIALS);
+      result.setInteractEnabled(interactEnabled);
+      result.setBreakEnabled(breakEnabled);
+      result.setThrowEnabled(throwEnabled);
+      result.setConsumeEnabled(consumeEnabled);
+
+      if (interactEnabled) {
+        final List<String> materialNames = plugin.getConfig().getStringList(Constants.CONFIG_KEY_INTERACT_MATERIALS);
+
+        if (materialNames.size() < 1) {
+          throw new InvalidConfigurationException(Constants.CONFIG_ERROR_EMPTY_MATERIALS);
+        }
+
+        result.setInteractMaterials(materialNames
+            .stream()
+            .distinct()
+            .map(Material::getMaterial)
+            .collect(Collectors.toSet())
+        );
       }
 
-      result.setMaterials(materialNames
-          .stream()
-          .distinct()
-          .map(Material::getMaterial)
-          .collect(Collectors.toSet())
-      );
+      if (breakEnabled) {
+        final List<String> materialNames = plugin.getConfig().getStringList(Constants.CONFIG_KEY_BREAK_MATERIALS);
+
+        if (materialNames.size() < 1) {
+          throw new InvalidConfigurationException(Constants.CONFIG_ERROR_EMPTY_MATERIALS);
+        }
+
+        result.setBreakMaterials(materialNames
+            .stream()
+            .distinct()
+            .map(Material::getMaterial)
+            .collect(Collectors.toSet())
+        );
+      }
+
+      if (throwEnabled) {
+        final List<String> materialNames = plugin.getConfig().getStringList(Constants.CONFIG_KEY_THROW_MATERIALS);
+
+        if (materialNames.size() < 1) {
+          throw new InvalidConfigurationException(Constants.CONFIG_ERROR_EMPTY_MATERIALS);
+        }
+
+        result.setThrowMaterials(materialNames
+            .stream()
+            .distinct()
+            .map(Material::getMaterial)
+            .collect(Collectors.toSet())
+        );
+      }
+
+      if (consumeEnabled) {
+        final List<String> materialNames = plugin.getConfig().getStringList(Constants.CONFIG_KEY_CONSUME_MATERIALS);
+
+        if (materialNames.size() < 1) {
+          throw new InvalidConfigurationException(Constants.CONFIG_ERROR_EMPTY_MATERIALS);
+        }
+
+        result.setConsumeMaterials(materialNames
+            .stream()
+            .distinct()
+            .map(Material::getMaterial)
+            .collect(Collectors.toSet())
+        );
+      }
     } catch (IOException e) {
       plugin.getLogger().severe(String.join("" , "IOException during config read: ", e.getMessage()));
     } catch (InvalidConfigurationException e) {

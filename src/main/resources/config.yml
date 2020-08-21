@@ -1,5 +1,52 @@
-materials:
-  - WHEAT_SEEDS
-  - LEGACY_SEEDS
-  - LEGACY_AIR
-  - LEGACY_POTATO_ITEM
+interact:
+  enabled: true
+  materials:
+    - WHEAT_SEEDS
+    - LEGACY_SEEDS
+    - LEGACY_AIR
+    - LEGACY_POTATO_ITEM
+throw:
+  enabled: true
+  materials:
+    - EGG
+    - SNOWBALL
+    - EXPERIENCE_BOTTLE
+break:
+  enabled: true
+  materials:
+    - WOODEN_SWORD
+    - WOODEN_AXE
+    - WOODEN_PICKAXE
+    - WOODEN_HOE
+    - WOODEN_SHOVEL
+    - STONE_SWORD
+    - STONE_AXE
+    - STONE_PICKAXE
+    - STONE_HOE
+    - STONE_SHOVEL
+    - IRON_SWORD
+    - IRON_AXE
+    - IRON_PICKAXE
+    - IRON_HOE
+    - IRON_SHOVEL
+    - GOLDEN_SWORD
+    - GOLDEN_AXE
+    - GOLDEN_PICKAXE
+    - GOLDEN_HOE
+    - GOLDEN_SHOVEL
+    - DIAMOND_SWORD
+    - DIAMOND_AXE
+    - DIAMOND_PICKAXE
+    - DIAMOND_HOE
+    - DIAMOND_SHOVEL
+    - DIAMOND_SWORD
+    - NETHERITE_AXE
+    - NETHERITE_PICKAXE
+    - NETHERITE_HOE
+    - NETHERITE_SHOVEL
+consume:
+  enabled: true
+  materials:
+    - SWEET_BERRIES
+    - RABBIT_STEW
+    - BREAD
