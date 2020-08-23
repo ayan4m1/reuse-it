@@ -5,7 +5,6 @@ import in.thekreml.reuseit.ReuseIt;
 import in.thekreml.reuseit.utils.SwapUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -140,7 +139,7 @@ public class PlayerListener implements Listener {
       return;
     }
 
-    if (item.getAmount() != 1) {
+    if (item.getAmount() > 1) {
       return;
     }
 
