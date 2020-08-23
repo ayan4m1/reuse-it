@@ -2,6 +2,7 @@ package in.thekreml.reuseit;
 
 import in.thekreml.reuseit.command.ReuseCommand;
 import in.thekreml.reuseit.config.ConfigModel;
+import in.thekreml.reuseit.listener.FoodLevelChangeListener;
 import in.thekreml.reuseit.listener.NotificationListener;
 import in.thekreml.reuseit.listener.PlayerListener;
 import net.milkbowl.vault.permission.Permission;
@@ -40,6 +41,7 @@ public class ReuseIt extends JavaPlugin {
 
     Bukkit.getPluginManager().registerEvents(new NotificationListener(), this);
     Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
+    Bukkit.getPluginManager().registerEvents(new FoodLevelChangeListener(this), this);
 
     final PluginCommand command = getCommand(Constants.COMMAND_REUSE);
 
