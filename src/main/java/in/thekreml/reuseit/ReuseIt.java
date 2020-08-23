@@ -1,10 +1,12 @@
 package in.thekreml.reuseit;
 
+import in.thekreml.reuseit.command.ReuseCommand;
 import in.thekreml.reuseit.config.ConfigModel;
 import in.thekreml.reuseit.listener.NotificationListener;
 import in.thekreml.reuseit.listener.PlayerListener;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,6 +40,12 @@ public class ReuseIt extends JavaPlugin {
 
     Bukkit.getPluginManager().registerEvents(new NotificationListener(), this);
     Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
+
+    final PluginCommand command = getCommand(Constants.COMMAND_REUSE);
+
+    if (command != null) {
+      command.setExecutor(new ReuseCommand(this));
+    }
 
     log.info("ReuseIt enabled!");
   }
