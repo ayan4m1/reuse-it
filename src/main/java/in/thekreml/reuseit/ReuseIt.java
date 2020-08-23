@@ -1,5 +1,6 @@
 package in.thekreml.reuseit;
 
+import com.comphenix.protocol.ProtocolLibrary;
 import in.thekreml.reuseit.command.ReuseCommand;
 import in.thekreml.reuseit.config.ConfigModel;
 import in.thekreml.reuseit.listener.FoodLevelChangeListener;
@@ -39,9 +40,9 @@ public class ReuseIt extends JavaPlugin {
       return;
     }
 
+    Bukkit.getPluginManager().registerEvents(new FoodLevelChangeListener(this), this);
     Bukkit.getPluginManager().registerEvents(new NotificationListener(), this);
     Bukkit.getPluginManager().registerEvents(new PlayerListener(this), this);
-    Bukkit.getPluginManager().registerEvents(new FoodLevelChangeListener(this), this);
 
     final PluginCommand command = getCommand(Constants.COMMAND_REUSE);
 
@@ -50,6 +51,14 @@ public class ReuseIt extends JavaPlugin {
     }
 
     log.info("ReuseIt enabled!");
+  }
+
+  @Override
+  public void onDisable() {
+    getServer().getServicesManager().unregister(this);
+    Bukkit.getScheduler().cancelTasks(this);
+
+    log.info("ReuseIt disabled!");
   }
 
   private boolean setupPerms() {

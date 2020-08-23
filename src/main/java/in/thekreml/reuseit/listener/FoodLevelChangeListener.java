@@ -26,7 +26,7 @@ public class FoodLevelChangeListener implements Listener {
       new AbstractMap.SimpleEntry<>(10, Collections.singleton(Material.RABBIT_STEW))
   ).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> newValue, TreeMap::new));
 
-  private ReuseIt plugin;
+  private final ReuseIt plugin;
 
   public FoodLevelChangeListener(ReuseIt plugin) {
     this.plugin = plugin;
