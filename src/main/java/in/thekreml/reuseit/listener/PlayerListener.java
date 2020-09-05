@@ -2,6 +2,7 @@ package in.thekreml.reuseit.listener;
 
 import in.thekreml.reuseit.Constants;
 import in.thekreml.reuseit.ReuseIt;
+import in.thekreml.reuseit.config.UserPreferences;
 import in.thekreml.reuseit.utils.SwapUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -27,6 +28,10 @@ public class PlayerListener implements Listener {
   @EventHandler
   public void onPlayerInteract(PlayerInteractEvent event) {
     final Player player = event.getPlayer();
+
+    if (!UserPreferences.isEnabled(player.getName())) {
+      return;
+    }
 
     if (!plugin.getConfigModel().isInteractEnabled()) {
       return;
@@ -59,6 +64,12 @@ public class PlayerListener implements Listener {
 
   @EventHandler
   public void onPlayerBreakItem(PlayerItemBreakEvent event) {
+    final Player player = event.getPlayer();
+
+    if (!UserPreferences.isEnabled(player.getName())) {
+      return;
+    }
+
     if (!plugin.getConfigModel().isBreakEnabled()) {
       return;
     }
@@ -81,6 +92,12 @@ public class PlayerListener implements Listener {
 
   @EventHandler
   public void onPlayerConsume(PlayerItemConsumeEvent event) {
+    final Player player = event.getPlayer();
+
+    if (!UserPreferences.isEnabled(player.getName())) {
+      return;
+    }
+
     if (!plugin.getConfigModel().isConsumeEnabled()) {
       return;
     }
@@ -114,6 +131,11 @@ public class PlayerListener implements Listener {
     }
 
     final Player player = (Player)entity.getShooter();
+
+    if (!UserPreferences.isEnabled(player.getName())) {
+      return;
+    }
+
     final ItemStack stack = player.getInventory().getItemInMainHand();
 
     if (stack.getData() == null) {
