@@ -34,6 +34,10 @@ public class FoodLevelChangeListener implements Listener {
 
   @EventHandler
   public void onFoodLevelChange(FoodLevelChangeEvent event) {
+    if (!plugin.getConfigModel().isConsumeEnabled()) {
+      return;
+    }
+
     if (!(event.getEntity() instanceof Player)) {
       return;
     }
