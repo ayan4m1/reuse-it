@@ -88,6 +88,7 @@ public class ConfigModel {
     final ConfigModel result = new ConfigModel();
 
     try {
+      plugin.saveDefaultConfig();
       plugin.getConfig().load(Constants.CONFIG_PATH);
 
       final boolean interactEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_INTERACT_ENABLED);
