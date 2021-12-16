@@ -15,6 +15,6 @@ deploy:
   token: $GITHUB_TOKEN
   file: "build/libs/reuse-it-*.jar"
   file_glob: true
-  cleanup: false
+  skip_cleanup: true
   on:
     tags: true
