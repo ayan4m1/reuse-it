@@ -29,15 +29,15 @@ public class PlayerListener implements Listener {
   public void onPlayerInteract(PlayerInteractEvent event) {
     final Player player = event.getPlayer();
 
+    if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
+      return;
+    }
+
     if (!UserPreferences.isEnabled(player.getName())) {
       return;
     }
 
     if (!plugin.getConfigModel().isInteractEnabled()) {
-      return;
-    }
-
-    if (event.getAction() != Action.RIGHT_CLICK_BLOCK) {
       return;
     }
 
