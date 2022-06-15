@@ -38,11 +38,10 @@ public class FoodLevelChangeListener implements Listener {
       return;
     }
 
-    if (!(event.getEntity() instanceof Player)) {
+    if (!(event.getEntity() instanceof final Player player)) {
       return;
     }
 
-    final Player player = (Player) event.getEntity();
     final Inventory inventory = player.getInventory();
     final int remainingFood = event.getFoodLevel();
 

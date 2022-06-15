@@ -6,6 +6,7 @@ import in.thekreml.reuseit.config.UserPreferences;
 import in.thekreml.reuseit.utils.SwapUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -17,6 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockDataMeta;
 
 public class PlayerListener implements Listener {
   private final ReuseIt plugin;
@@ -48,13 +50,18 @@ public class PlayerListener implements Listener {
 
     final ItemStack item = event.getItem();
 
-    if (item == null || item.getData() == null) {
+    if (item == null) {
       return;
     }
 
-    final String itemType = item.getData().getItemType().name();
+    if (!(item instanceof final BlockDataMeta data)) {
+      return;
+    }
 
-    if (!plugin.getConfigModel().getInteractMaterials().contains(item.getData().getItemType())) {
+    final Material material = data.getBlockData(item.getType()).getMaterial();
+    final String itemType = material.name();
+
+    if (!plugin.getConfigModel().getInteractMaterials().contains(material)) {
       plugin.getLog().fine(itemType + " is not eligible for interact reuse!");
       return;
     }
@@ -76,13 +83,14 @@ public class PlayerListener implements Listener {
 
     final ItemStack item = event.getBrokenItem();
 
-    if (item.getData() == null) {
+    if (!(item instanceof final BlockDataMeta data)) {
       return;
     }
 
-    final String itemType = item.getData().getItemType().name();
+    final Material material = data.getBlockData(item.getType()).getMaterial();
+    final String itemType = material.name();
 
-    if (!plugin.getConfigModel().getBreakMaterials().contains(item.getData().getItemType())) {
+    if (!plugin.getConfigModel().getBreakMaterials().contains(material)) {
       plugin.getLog().fine(itemType + " is not eligible for break reuse!");
       return;
     }
@@ -104,13 +112,14 @@ public class PlayerListener implements Listener {
 
     final ItemStack item = event.getItem();
 
-    if (item.getData() == null) {
+    if (!(item instanceof final BlockDataMeta data)) {
       return;
     }
 
-    final String itemType = item.getData().getItemType().name();
+    final Material material = data.getBlockData(item.getType()).getMaterial();
+    final String itemType = material.name();
 
-    if (!plugin.getConfigModel().getConsumeMaterials().contains(item.getData().getItemType())) {
+    if (!plugin.getConfigModel().getConsumeMaterials().contains(material)) {
       plugin.getLog().fine(itemType + " is not eligible for consume reuse!");
       return;
     }
@@ -126,11 +135,9 @@ public class PlayerListener implements Listener {
 
     final Projectile entity = event.getEntity();
 
-    if (!(entity.getShooter() instanceof Player)) {
+    if (!(entity.getShooter() instanceof final Player player)) {
       return;
     }
-
-    final Player player = (Player)entity.getShooter();
 
     if (!UserPreferences.isEnabled(player.getName())) {
       return;
@@ -138,13 +145,14 @@ public class PlayerListener implements Listener {
 
     final ItemStack stack = player.getInventory().getItemInMainHand();
 
-    if (stack.getData() == null) {
+    if (!(stack instanceof final BlockDataMeta data)) {
       return;
     }
 
-    final String itemType = stack.getData().getItemType().name();
+    final Material material = data.getBlockData(stack.getType()).getMaterial();
+    final String itemType = material.name();
 
-    if (!plugin.getConfigModel().getThrowMaterials().contains(stack.getData().getItemType())) {
+    if (!plugin.getConfigModel().getThrowMaterials().contains(material)) {
       plugin.getLog().fine(itemType + " is not eligible for consume reuse!");
       return;
     }
@@ -157,7 +165,7 @@ public class PlayerListener implements Listener {
       return;
     }
 
-    if (item == null || item.getData() == null) {
+    if (item == null) {
       return;
     }
 
@@ -170,7 +178,11 @@ public class PlayerListener implements Listener {
       return;
     }
 
-    final String itemType = item.getData().getItemType().name();
+    if (!(item instanceof final BlockDataMeta data)) {
+      return;
+    }
+
+    final String itemType = data.getBlockData(item.getType()).getMaterial().name();
 
     Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> SwapUtil.performSwap(player, itemType));
   }

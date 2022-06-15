@@ -13,7 +13,7 @@ public class SwapUtil {
       }
 
       final ItemStack srcSlot = storage[i];
-      if (srcSlot == null || srcSlot.getData() == null || !srcSlot.getData().getItemType().name().equals(itemType)) {
+      if (srcSlot == null || !srcSlot.getType().name().equals(itemType)) {
         continue;
       }
 

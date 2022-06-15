@@ -20,11 +20,10 @@ public class ReuseCommand implements CommandExecutor {
   public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
     plugin.getLog().fine("Handling command " + label);
 
-    if (!(sender instanceof Player)) {
+    if (!(sender instanceof final Player player)) {
       return false;
     }
 
-    final Player player = (Player)sender;
     final boolean newValue = UserPreferences.toggle(player.getName());
 
     if (newValue) {
