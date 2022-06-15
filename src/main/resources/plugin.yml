@@ -1,7 +1,7 @@
 main: in.thekreml.reuseit.ReuseIt
 name: reuse-it
-version: 0.3.0
-api-version: 1.18
+version: 0.4.0
+api-version: 1.19
 depend: [Vault]
 commands:
   reuse:
