@@ -18,7 +18,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BlockDataMeta;
 
 public class PlayerListener implements Listener {
   private final ReuseIt plugin;
@@ -54,11 +53,7 @@ public class PlayerListener implements Listener {
       return;
     }
 
-    if (!(item instanceof final BlockDataMeta data)) {
-      return;
-    }
-
-    final Material material = data.getBlockData(item.getType()).getMaterial();
+    final Material material = item.getType();
     final String itemType = material.name();
 
     if (!plugin.getConfigModel().getInteractMaterials().contains(material)) {
@@ -82,16 +77,11 @@ public class PlayerListener implements Listener {
     }
 
     final ItemStack item = event.getBrokenItem();
-
-    if (!(item instanceof final BlockDataMeta data)) {
-      return;
-    }
-
-    final Material material = data.getBlockData(item.getType()).getMaterial();
+    final Material material = item.getType();
     final String itemType = material.name();
 
     if (!plugin.getConfigModel().getBreakMaterials().contains(material)) {
-      plugin.getLog().fine(itemType + " is not eligible for break reuse!");
+      plugin.getLog().info(itemType + " is not eligible for break reuse!");
       return;
     }
 
@@ -111,12 +101,7 @@ public class PlayerListener implements Listener {
     }
 
     final ItemStack item = event.getItem();
-
-    if (!(item instanceof final BlockDataMeta data)) {
-      return;
-    }
-
-    final Material material = data.getBlockData(item.getType()).getMaterial();
+    final Material material = item.getType();
     final String itemType = material.name();
 
     if (!plugin.getConfigModel().getConsumeMaterials().contains(material)) {
@@ -144,12 +129,7 @@ public class PlayerListener implements Listener {
     }
 
     final ItemStack stack = player.getInventory().getItemInMainHand();
-
-    if (!(stack instanceof final BlockDataMeta data)) {
-      return;
-    }
-
-    final Material material = data.getBlockData(stack.getType()).getMaterial();
+    final Material material = stack.getType();
     final String itemType = material.name();
 
     if (!plugin.getConfigModel().getThrowMaterials().contains(material)) {
@@ -166,10 +146,12 @@ public class PlayerListener implements Listener {
     }
 
     if (item == null) {
+      plugin.getLog().fine("checkStack called with null item!");
       return;
     }
 
     if (item.getAmount() > 1) {
+      plugin.getLog().fine("checkStack called with non-empty stack!");
       return;
     }
 
@@ -178,11 +160,7 @@ public class PlayerListener implements Listener {
       return;
     }
 
-    if (!(item instanceof final BlockDataMeta data)) {
-      return;
-    }
-
-    final String itemType = data.getBlockData(item.getType()).getMaterial().name();
+    final String itemType = item.getType().name();
 
     Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> SwapUtil.performSwap(player, itemType));
   }
