@@ -10,6 +10,7 @@ public class Constants {
   public static final String CONFIG_KEY_BREAK_MATERIALS = "break.materials";
   public static final String CONFIG_KEY_CONSUME_ENABLED = "consume.enabled";
   public static final String CONFIG_KEY_CONSUME_MATERIALS = "consume.materials";
+  public static final String CONFIG_KEY_AUTO_CONSUME_ENABLED = "consume.auto.enabled";
   public static final String CONFIG_ERROR_EMPTY_MATERIALS = "Materials list should not be empty!";
   public static final String PERMISSION_USE = "reuse-it.use";
   public static final String COMMAND_REUSE = "reuse";

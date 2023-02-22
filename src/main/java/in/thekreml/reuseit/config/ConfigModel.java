@@ -19,6 +19,7 @@ public class ConfigModel {
   private Set<Material> throwMaterials;
   private boolean consumeEnabled;
   private Set<Material> consumeMaterials;
+  private boolean autoConsumeEnabled;
 
   public boolean isInteractEnabled() {
     return interactEnabled;
@@ -84,6 +85,14 @@ public class ConfigModel {
     this.consumeMaterials = consumeMaterials;
   }
 
+  public boolean isAutoConsumeEnabled() {
+    return autoConsumeEnabled;
+  }
+
+  public void setAutoConsumeEnabled(boolean autoConsumeEnabled) {
+    this.autoConsumeEnabled = autoConsumeEnabled;
+  }
+
   public static ConfigModel loadConfigModel(JavaPlugin plugin) {
     final ConfigModel result = new ConfigModel();
 
@@ -95,11 +104,13 @@ public class ConfigModel {
       final boolean breakEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_BREAK_ENABLED);
       final boolean throwEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_THROW_ENABLED);
       final boolean consumeEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_CONSUME_ENABLED);
+      final boolean autoConsumeEnabled = plugin.getConfig().getBoolean(Constants.CONFIG_KEY_AUTO_CONSUME_ENABLED);
 
       result.setInteractEnabled(interactEnabled);
       result.setBreakEnabled(breakEnabled);
       result.setThrowEnabled(throwEnabled);
       result.setConsumeEnabled(consumeEnabled);
+      result.setAutoConsumeEnabled(autoConsumeEnabled);
 
       if (interactEnabled) {
         final List<String> materialNames = plugin.getConfig().getStringList(Constants.CONFIG_KEY_INTERACT_MATERIALS);
