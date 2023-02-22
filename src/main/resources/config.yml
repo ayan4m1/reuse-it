@@ -69,6 +69,8 @@ break:
     - NETHERITE_HOE
     - NETHERITE_SHOVEL
 consume:
+  auto:
+    enabled: true
   enabled: true
   materials:
     - SWEET_BERRIES
