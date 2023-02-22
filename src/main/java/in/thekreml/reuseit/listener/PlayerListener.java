@@ -142,6 +142,7 @@ public class PlayerListener implements Listener {
 
   private void checkStack(Player player, ItemStack item) {
     if (player.getGameMode() != GameMode.SURVIVAL) {
+      plugin.getLog().fine("checkStack called for non-survival player!");
       return;
     }
 
