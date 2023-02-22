@@ -1,6 +1,8 @@
 package in.thekreml.reuseit.listener;
 
 import in.thekreml.reuseit.ReuseIt;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.sound.Sound;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -72,6 +74,7 @@ public class FoodLevelChangeListener implements Listener {
         final ItemStack foodStack = consumableFood.get();
         foodStack.setAmount(foodStack.getAmount() - 1);
         player.setFoodLevel(remainingFood + foodGiven);
+        player.playSound(Sound.sound(Key.key("minecraft:entity_player_burp"), Sound.Source.PLAYER, 1.0f, 1.0f));
         event.setCancelled(true);
         return;
       }
