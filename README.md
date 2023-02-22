@@ -2,7 +2,7 @@
 
 ## prerequisites
 
- * [Paper](https://papermc.io/ci/job/Paper-1.16) 1.16 build 88+
+ * [Paper](https://papermc.io/downloads) 1.19
  * [Vault](https://github.com/MilkBowl/VaultAPI) 1.7
  * A plugin that supports the Vault Permissions API
 
