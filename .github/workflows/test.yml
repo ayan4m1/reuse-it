@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mc-version:
+          - '1.19'
+          - '1.19.4'
+          - '1.20'
+          - '1.20.1'
+          - '1.20.6'
+          - '1.21'
+          - '1.21.3'
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: 21
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Build JAR with Gradle
+        run: ./gradlew -PpaperApiVersion=${{ matrix.mc-version }}-R0.1-SNAPSHOT assemble

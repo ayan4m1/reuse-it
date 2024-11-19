@@ -2,8 +2,8 @@
 
 ## prerequisites
 
- * [Paper](https://papermc.io/downloads) 1.19
- * [Vault](https://github.com/MilkBowl/VaultAPI) 1.7
+ * [Paper](https://papermc.io/downloads) 1.19 - 1.21
+ * [Vault](https://github.com/MilkBowl/VaultAPI) 1.7.1
  * A plugin that supports the Vault Permissions API
 
 ## usage

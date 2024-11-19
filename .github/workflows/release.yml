@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mc-version:
+          - '1.19'
+          - '1.19.4'
+          - '1.20'
+          - '1.20.1'
+          - '1.20.6'
+          - '1.21'
+          - '1.21.3'
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: 21
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Build JAR with Gradle
+        run: |
+          ./gradlew -PpaperApiVersion=${{ matrix.mc-version }}-R0.1-SNAPSHOT assemble
+          mv build/libs/reuse-it-*.jar .
+      - name: Upload JAR as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.mc-version }}
+          path: ./reuse-it-*.jar
+  release:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - name: Download JAR from artifact
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./reuse-it-*.jar
