@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'in.thekreml'
-version '0.5.0'
+version "${pluginVersion}-${paperApiVersion.substring(0, paperApiVersion.indexOf("-"))}"
 
 repositories {
     mavenCentral()
