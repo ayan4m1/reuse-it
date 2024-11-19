@@ -2,18 +2,28 @@ plugins {
     id 'java'
 }
 
+def mcVersion = paperApiVersion.substring(0, paperApiVersion.indexOf("-"))
+
 group 'in.thekreml'
-version "${pluginVersion}-${paperApiVersion.substring(0, paperApiVersion.indexOf("-"))}"
+version "${pluginVersion}-${mcVersion}"
 
 repositories {
     mavenCentral()
-    maven { url 'https://papermc.io/repo/repository/maven-public/' }
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
     maven { url 'https://jitpack.io' }
-    maven { url 'https://repo.dmulloy2.net/repository/public/' }
+    maven { url "https://repo.dmulloy2.net/repository/public/" }
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:${paperApiVersion}"
     compileOnly "com.github.MilkBowl:VaultAPI:${vaultApiVersion}"
     compileOnly "com.comphenix.protocol:ProtocolLib:${protocolLibVersion}"
+}
+
+processResources {
+    filter {
+        String line -> line
+                .replaceAll("\\{pluginVersion}", pluginVersion)
+                .replaceAll("\\{apiVersion}", mcVersion)
+    }
 }
