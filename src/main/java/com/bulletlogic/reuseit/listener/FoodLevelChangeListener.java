@@ -1,6 +1,6 @@
-package in.thekreml.reuseit.listener;
+package com.bulletlogic.reuseit.listener;
 
-import in.thekreml.reuseit.ReuseIt;
+import com.bulletlogic.reuseit.ReuseIt;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import org.bukkit.Material;

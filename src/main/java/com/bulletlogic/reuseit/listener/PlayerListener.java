@@ -1,9 +1,9 @@
-package in.thekreml.reuseit.listener;
+package com.bulletlogic.reuseit.listener;
 
-import in.thekreml.reuseit.Constants;
-import in.thekreml.reuseit.ReuseIt;
-import in.thekreml.reuseit.config.UserPreferences;
-import in.thekreml.reuseit.utils.SwapUtil;
+import com.bulletlogic.reuseit.Constants;
+import com.bulletlogic.reuseit.ReuseIt;
+import com.bulletlogic.reuseit.config.UserPreferences;
+import com.bulletlogic.reuseit.utils.SwapUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;

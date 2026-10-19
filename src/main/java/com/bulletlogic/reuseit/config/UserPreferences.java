@@ -1,4 +1,4 @@
-package in.thekreml.reuseit.config;
+package com.bulletlogic.reuseit.config;
 
 import java.util.HashMap;
 import java.util.Map;

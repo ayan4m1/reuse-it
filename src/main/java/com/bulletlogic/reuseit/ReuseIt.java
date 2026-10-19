@@ -1,11 +1,10 @@
-package in.thekreml.reuseit;
+package com.bulletlogic.reuseit;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import in.thekreml.reuseit.command.ReuseCommand;
-import in.thekreml.reuseit.config.ConfigModel;
-import in.thekreml.reuseit.listener.FoodLevelChangeListener;
-import in.thekreml.reuseit.listener.NotificationListener;
-import in.thekreml.reuseit.listener.PlayerListener;
+import com.bulletlogic.reuseit.command.ReuseCommand;
+import com.bulletlogic.reuseit.config.ConfigModel;
+import com.bulletlogic.reuseit.listener.FoodLevelChangeListener;
+import com.bulletlogic.reuseit.listener.NotificationListener;
+import com.bulletlogic.reuseit.listener.PlayerListener;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;

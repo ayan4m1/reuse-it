@@ -1,6 +1,6 @@
-package in.thekreml.reuseit.config;
+package com.bulletlogic.reuseit.config;
 
-import in.thekreml.reuseit.Constants;
+import com.bulletlogic.reuseit.Constants;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;

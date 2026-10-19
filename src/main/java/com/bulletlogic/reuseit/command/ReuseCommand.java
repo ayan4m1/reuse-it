@@ -1,7 +1,7 @@
-package in.thekreml.reuseit.command;
+package com.bulletlogic.reuseit.command;
 
-import in.thekreml.reuseit.ReuseIt;
-import in.thekreml.reuseit.config.UserPreferences;
+import com.bulletlogic.reuseit.ReuseIt;
+import com.bulletlogic.reuseit.config.UserPreferences;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

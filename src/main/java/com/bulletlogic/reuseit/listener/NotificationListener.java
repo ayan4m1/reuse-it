@@ -1,6 +1,6 @@
-package in.thekreml.reuseit.listener;
+package com.bulletlogic.reuseit.listener;
 
-import in.thekreml.reuseit.config.UserPreferences;
+import com.bulletlogic.reuseit.config.UserPreferences;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

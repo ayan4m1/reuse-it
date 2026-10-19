@@ -1,4 +1,4 @@
-main: in.thekreml.reuseit.ReuseIt
+main: com.bulletlogic.reuseit.ReuseIt
 name: reuse-it
 version: {pluginVersion}
 api-version: {apiVersion}

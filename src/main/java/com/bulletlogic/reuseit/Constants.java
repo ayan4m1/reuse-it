@@ -1,4 +1,4 @@
-package in.thekreml.reuseit;
+package com.bulletlogic.reuseit;
 
 public class Constants {
   public static final String CONFIG_PATH = "./plugins/reuse-it/config.yml";

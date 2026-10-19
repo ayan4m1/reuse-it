@@ -1,4 +1,4 @@
-package in.thekreml.reuseit.utils;
+package com.bulletlogic.reuseit.utils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
