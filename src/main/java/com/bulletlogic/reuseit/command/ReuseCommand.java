@@ -6,8 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 public class ReuseCommand implements CommandExecutor {
   private final ReuseIt plugin;
@@ -17,7 +16,7 @@ public class ReuseCommand implements CommandExecutor {
   }
 
   @Override
-  public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+  public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
     plugin.getLog().fine("Handling command " + label);
 
     if (!(sender instanceof final Player player)) {
