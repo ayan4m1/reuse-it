@@ -18,8 +18,6 @@ jobs:
           - '1.21.8'
           - '1.21.10'
           - '1.21.11'
-          - '26.2'
-          - '26.3'
     steps:
       - name: Checkout source
         uses: actions/checkout@v7
