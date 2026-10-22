@@ -2,12 +2,14 @@ plugins {
     id 'java'
 }
 
-def mcVersion = paperApiVersion.substring(0, paperApiVersion.indexOf("-"))
+def mcVersion = paperApiVersion.split(/-|\.build/)[0]
 def mcVersionParts = mcVersion.split("\\.")
 def protocolLibVersion = (
-    mcVersionParts.length > 2 &&
-    mcVersionParts[1] == "21" &&
-    Integer.parseInt(mcVersionParts[2]) >= 3
+    Integer.parseInt(mcVersionParts[0]) >= 26 || (
+        mcVersionParts.length > 2 &&
+        mcVersionParts[1] == "21" &&
+        Integer.parseInt(mcVersionParts[2]) >= 3
+    )
 ) ? '5.4.0': '5.3.0';
 
 group 'com.bulletlogic'
