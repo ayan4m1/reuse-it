@@ -35,7 +35,7 @@ jobs:
       - name: Upload JAR as artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.mc-version }}
+          name: build-${{ matrix.mc-version }}
           path: ./reuse-it-*.jar
   build:
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
       - name: Upload JAR as artifact
         uses: actions/upload-artifact@v7
         with:
-          name: ${{ matrix.mc-version }}
+          name: build-${{ matrix.mc-version }}
           path: ./reuse-it-*.jar
   release:
     runs-on: ubuntu-latest
@@ -70,6 +70,7 @@ jobs:
       - name: Download JAR from artifact
         uses: actions/download-artifact@v8
         with:
+          pattern: build-*
           merge-multiple: true
       - name: Create GitHub release
         uses: softprops/action-gh-release@v3
